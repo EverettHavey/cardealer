@@ -4,10 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us | Roller Motor Company</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* CSS is consistent across all files for styling/responsiveness */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary-color: #002244; --accent-color: #00BFFF; --text-dark: #1a1a1a;
+            --text-light: #ffffff; --bg-light: #f7f7f7; --font-primary: 'Roboto', sans-serif;
+            --transition-speed: 0.3s;
+        }
+        body { font-family: var(--font-primary); color: var(--text-dark); line-height: 1.6; background-color: var(--bg-light); }
+        a { color: var(--primary-color); text-decoration: none; transition: color var(--transition-speed); }
+        a:hover { color: var(--accent-color); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        h1 { font-weight: 700; font-size: 2.5em; margin: 40px 0 20px; text-align: center; }
+        h2 { font-weight: 700; font-size: 2.2em; margin-bottom: 20px; }
+        .cta-button {
+            display: inline-block; padding: 12px 30px; border-radius: 4px; font-weight: 600; text-transform: uppercase;
+            transition: background-color var(--transition-speed), transform 0.2s; border: 2px solid transparent; cursor: pointer;
+        }
+        .cta-button.primary { background-color: var(--accent-color); color: var(--text-dark); }
+        .cta-button.primary:hover { background-color: #0099cc; transform: translateY(-2px); }
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: var(--primary-color); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .logo a { font-size: 1.5em; font-weight: 900; letter-spacing: 1px; color: var(--text-light); }
+        .header-actions { display: flex; align-items: center; }
+        .header-actions > * { margin-left: 15px; }
+        .search-btn { background: none; border: none; color: var(--text-light); font-size: 1.2em; cursor: pointer; }
+        .desktop-nav { display: none; }
+        .desktop-nav ul { list-style: none; display: flex; }
+        .desktop-nav li a { padding: 10px 15px; color: var(--text-light); border-bottom: 2px solid transparent; }
+        .desktop-nav li a:hover, .desktop-nav li a.active { color: var(--accent-color); border-color: var(--accent-color); }
+        .hamburger-menu { background: none; border: none; padding: 5px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; }
+        .hamburger-menu .bar { display: block; height: 3px; width: 100%; background: var(--text-light); border-radius: 1px; }
+        .mobile-nav { position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background-color: var(--primary-color); padding-top: 80px; transition: right var(--transition-speed) ease-in-out; z-index: 999; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); }
+        .mobile-nav.open { right: 0; }
+        .mobile-nav ul { list-style: none; }
+        .mobile-nav ul a { display: block; padding: 15px 30px; color: var(--text-light); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .mobile-nav ul a:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--accent-color); }
+
+        /* Contact Page Specific Styles */
+        .contact-hero {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 50px 20px;
+            text-align: center;
+        }
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr; /* Mobile: stacked columns */
+            gap: 40px;
+            padding: 40px 0;
+        }
+        .contact-form-area, .info-area {
+            padding: 25px;
+            background-color: var(--text-light);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .form-group { margin-bottom: 20px; }
+        .contact-form label { display: block; margin-bottom: 5px; font-weight: 600; }
+        .contact-form input, .contact-form select, .contact-form textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;
+        }
+        .map-placeholder {
+            height: 300px;
+            background-color: #e0e0e0;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info-area p, .info-area ul { margin-bottom: 15px; }
+        .department-list { list-style: none; }
+        .department-list li { margin-bottom: 5px; }
+        .department-list li a { font-weight: 600; }
+
+        /* Footer Styles (Standardized) */
+        .main-footer { background-color: var(--primary-color); color: var(--text-light); padding-top: 50px; border-top: 5px solid var(--accent-color); }
+        .footer-content { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; padding-bottom: 30px; }
+        .footer-col { flex: 1 1 200px; }
+        .footer-col h4 { color: var(--accent-color); margin-bottom: 15px; }
+        .footer-col ul { list-style: none; }
+        .footer-col a { color: rgba(255, 255, 255, 0.7); display: block; padding: 5px 0; }
+        .footer-col a:hover { color: var(--text-light); }
+        .copyright { text-align: center; padding: 20px 0; background-color: #00152b; font-size: 0.9em; }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: block; }
+            .hamburger-menu { display: none; }
+            .mobile-nav { display: none !important; }
+            .contact-layout { grid-template-columns: 2fr 1.5fr; }
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header"></header>
+    <header class="main-header">
+        <div class="logo">
+            <a href="index.html">Roller Motor Company</a>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vehicles.html">Vehicles</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="#">Finance</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="search-btn" aria-label="Search">🔍</button> 
+            <button class="hamburger-menu" aria-label="Toggle menu" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contact.html" class="active">Contact</a></li>
+            <li><a href="#">Finance</a></li>
+        </ul>
+    </nav>
     <main>
         <section class="contact-hero">
             <div class="container">
@@ -15,7 +134,6 @@
                 <p>Our team is ready to assist you. Select a department or fill out the contact form below.</p>
             </div>
         </section>
-
         <section class="contact-layout container">
             <div class="contact-form-area">
                 <h2>Send Us a Message</h2>
@@ -47,12 +165,11 @@
                         <textarea id="message" name="message" rows="5" required></textarea>
                     </div>
                     <div class="form-group captcha-placeholder">
-                        [CAPTCHA Placeholder]
+                        <p style="font-size: 0.8em; color: #666;">[CAPTCHA Placeholder: I am not a robot]</p>
                     </div>
                     <button type="submit" class="cta-button primary">Send Message</button>
                 </form>
             </div>
-
             <div class="info-area">
                 <h2>Dealership Location</h2>
                 <p class="address">
@@ -63,22 +180,55 @@
                     **Sales Hours:** Mon - Sat, 9:00 AM - 7:00 PM<br>
                     **Service Hours:** Mon - Fri, 7:30 AM - 6:00 PM
                 </p>
-                <p class="phone-main">Main Line: <a href="tel:5551234567">(555) 123-4567</a></p>
-
                 <div class="map-placeholder">
-                    [Google Maps Embed]
+                    [Google Maps Embed Placeholder]
                 </div>
-
                 <h2>Department Contacts</h2>
                 <ul class="department-list">
-                    <li>**Sales:** <a href="mailto:sales@roller.com">sales@roller.com</a></li>
-                    <li>**Service:** <a href="mailto:service@roller.com">service@roller.com</a></li>
+                    <li>**Sales:** <a href="tel:5551234567">(555) 123-4567</a> | <a href="mailto:sales@roller.com">sales@roller.com</a></li>
+                    <li>**Service:** <a href="tel:5551234567">(555) 987-6543</a> | <a href="mailto:service@roller.com">service@roller.com</a></li>
                     <li>**Finance:** <a href="mailto:finance@roller.com">finance@roller.com</a></li>
                 </ul>
             </div>
         </section>
     </main>
-    <footer class="main-footer"></footer>
-    <script src="script.js"></script>
+    <footer class="main-footer">
+        <div class="footer-content container">
+            <div class="footer-col">
+                <h4>Roller Motor Company</h4>
+                <p>Crafting vehicles for a better tomorrow.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="vehicles.html">New Inventory</a></li>
+                    <li><a href="aboutus.html">Our Story</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Service Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Roller Motor Company. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (hamburgerBtn && mobileMenu) {
+                const toggleMenu = () => { mobileMenu.classList.toggle('open'); hamburgerBtn.setAttribute('aria-expanded', mobileMenu.classList.contains('open')); };
+                hamburgerBtn.addEventListener('click', toggleMenu);
+                mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', toggleMenu));
+            }
+        });
+    </script>
 </body>
 </html>

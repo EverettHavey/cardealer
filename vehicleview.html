@@ -3,35 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roller X-Class SUV | Details & Specs</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Vehicle Details | Roller X-Class SUV</title>
+
+    <style>
+        /* CSS is consistent across all files for styling/responsiveness */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary-color: #002244; --accent-color: #00BFFF; --text-dark: #1a1a1a;
+            --text-light: #ffffff; --bg-light: #f7f7f7; --font-primary: 'Roboto', sans-serif;
+            --transition-speed: 0.3s;
+        }
+        body { font-family: var(--font-primary); color: var(--text-dark); line-height: 1.6; background-color: var(--bg-light); }
+        a { color: var(--primary-color); text-decoration: none; transition: color var(--transition-speed); }
+        a:hover { color: var(--accent-color); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        h1 { font-weight: 700; font-size: 2.5em; margin: 0; }
+        .cta-button {
+            display: inline-block; padding: 12px 30px; border-radius: 4px; font-weight: 600; text-transform: uppercase;
+            transition: background-color var(--transition-speed), transform 0.2s; border: 2px solid transparent; cursor: pointer;
+        }
+        .cta-button.primary { background-color: var(--accent-color); color: var(--text-dark); }
+        .cta-button.primary:hover { background-color: #0099cc; transform: translateY(-2px); }
+        .cta-button.secondary { background: none; border-color: var(--primary-color); color: var(--primary-color); }
+        .cta-button.secondary:hover { background-color: var(--primary-color); color: var(--text-light); }
+        .cta-button.tertiary { background: none; border: 1px solid #ccc; color: var(--primary-color); }
+        .cta-button.tertiary:hover { background-color: #eee; }
+
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: var(--primary-color); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .logo a { font-size: 1.5em; font-weight: 900; letter-spacing: 1px; color: var(--text-light); }
+        .header-actions { display: flex; align-items: center; }
+        .header-actions > * { margin-left: 15px; }
+        .search-btn { background: none; border: none; color: var(--text-light); font-size: 1.2em; cursor: pointer; }
+        .desktop-nav { display: none; }
+        .desktop-nav ul { list-style: none; display: flex; }
+        .desktop-nav li a { padding: 10px 15px; color: var(--text-light); border-bottom: 2px solid transparent; }
+        .desktop-nav li a:hover, .desktop-nav li a.active { color: var(--accent-color); border-color: var(--accent-color); }
+        .hamburger-menu { background: none; border: none; padding: 5px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; }
+        .hamburger-menu .bar { display: block; height: 3px; width: 100%; background: var(--text-light); border-radius: 1px; }
+        .mobile-nav { position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background-color: var(--primary-color); padding-top: 80px; transition: right var(--transition-speed) ease-in-out; z-index: 999; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); }
+        .mobile-nav.open { right: 0; }
+        .mobile-nav ul { list-style: none; }
+        .mobile-nav ul a { display: block; padding: 15px 30px; color: var(--text-light); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .mobile-nav ul a:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--accent-color); }
+
+        /* Vehicle Detail Specific Styles */
+        .vehicle-detail { padding: 40px 0; }
+        .breadcrumb { font-size: 0.9em; margin-bottom: 15px; }
+        .model-header { border-bottom: 2px solid var(--primary-color); padding-bottom: 15px; margin-bottom: 20px; }
+        .msrp-price { font-size: 1.5em; font-weight: 700; color: var(--accent-color); }
+        .detail-layout { display: grid; grid-template-columns: 1fr; gap: 40px; }
+        .gallery-section { order: 1; }
+        .actions-specs-summary { order: 2; padding: 20px; background-color: var(--text-light); border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+        .main-image { width: 100%; max-height: 500px; overflow: hidden; margin-bottom: 15px; border-radius: 8px; }
+        .main-image img { width: 100%; display: block; object-fit: cover; }
+        .thumbnail-previews { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; }
+        .thumbnail-previews img { width: 80px; height: 60px; object-fit: cover; cursor: pointer; border: 2px solid transparent; border-radius: 4px; transition: border-color var(--transition-speed); }
+        .thumbnail-previews img.active { border-color: var(--accent-color); }
+        .call-to-action-group { display: flex; flex-direction: column; gap: 15px; margin-top: 25px; }
+        .call-to-action-group .cta-button { width: 100%; text-align: center; font-size: 1.1em; }
+        .highlight-list { list-style: none; padding-left: 0; margin-bottom: 25px; }
+        .highlight-list li { padding: 5px 0; border-bottom: 1px dotted #ccc; font-weight: 500; }
+
+        /* Tabs */
+        .detailed-specs-tabs { margin-top: 40px; }
+        .tab-buttons { display: flex; border-bottom: 2px solid #ddd; overflow-x: auto; }
+        .spec-tab { background: none; border: none; padding: 15px 25px; font-size: 1.1em; font-weight: 600; cursor: pointer; transition: color var(--transition-speed), border-color var(--transition-speed); border-bottom: 3px solid transparent; margin-bottom: -2px; }
+        .spec-tab:hover, .spec-tab.active { color: var(--accent-color); border-color: var(--accent-color); }
+        .tab-content { padding: 30px; background-color: var(--text-light); border-radius: 0 0 8px 8px; display: none; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .tab-content.active { display: block; opacity: 1; }
+        .tab-content ul { list-style: none; }
+        .tab-content li { margin-bottom: 10px; }
+        .tab-content li strong { color: var(--primary-color); }
+
+        /* Footer Styles (Standardized) */
+        .main-footer { background-color: var(--primary-color); color: var(--text-light); padding-top: 50px; border-top: 5px solid var(--accent-color); }
+        .footer-content { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; padding-bottom: 30px; }
+        .footer-col { flex: 1 1 200px; }
+        .footer-col h4 { color: var(--accent-color); margin-bottom: 15px; }
+        .footer-col ul { list-style: none; }
+        .footer-col a { color: rgba(255, 255, 255, 0.7); display: block; padding: 5px 0; }
+        .footer-col a:hover { color: var(--text-light); }
+        .copyright { text-align: center; padding: 20px 0; background-color: #00152b; font-size: 0.9em; }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: block; }
+            .hamburger-menu { display: none; }
+            .mobile-nav { display: none !important; }
+            .detail-layout { grid-template-columns: 3fr 2fr; }
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header"></header>
+    <header class="main-header">
+        <div class="logo">
+            <a href="index.html">Roller Motor Company</a>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vehicles.html" class="active">Vehicles</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#">Finance</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="search-btn" aria-label="Search">🔍</button> 
+            <button class="hamburger-menu" aria-label="Toggle menu" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html" class="active">Vehicles</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Finance</a></li>
+        </ul>
+    </nav>
     <main>
         <section class="vehicle-detail container">
             <nav class="breadcrumb">
                 <a href="index.html">Home</a> &gt; <a href="vehicles.html">Vehicles</a> &gt; Roller X-Class SUV
             </nav>
-
             <div class="model-header">
                 <h1>Roller X-Class SUV <span class="year">2026 Model</span></h1>
                 <p class="msrp-price">MSRP from <span>$45,000</span></p>
             </div>
-
             <div class="detail-layout">
                 <div class="gallery-section">
                     <div class="main-image">
                         <img src="images/image.webp" alt="Primary view of the Roller X-Class SUV" id="main-vehicle-image">
                     </div>
                     <div class="thumbnail-previews">
-                        <img src="images/image.webp" alt="Thumbnail 1">
-                        <img src="images/image.webp" alt="Thumbnail 2">
-                        <img src="images/image.webp" alt="Thumbnail 3">
-                        <button class="view-360-btn">360&deg; View</button>
+                        <img src="images/image.webp" alt="Front view" data-full-src="images/image.webp" class="active">
+                        <img src="images/image.webp" alt="Interior view" data-full-src="images/image.webp">
+                        <img src="images/image.webp" alt="Rear view" data-full-src="images/image.webp">
+                        <button class="cta-button tertiary view-360-btn" style="width: auto;">360° View</button>
                     </div>
                 </div>
-
                 <div class="actions-specs-summary">
                     <h2>Key Highlights</h2>
                     <ul class="highlight-list">
@@ -40,15 +154,13 @@
                         <li>Panoramic Glass Roof and Premium Leather Interior</li>
                         <li>Level 2 Autonomous Driving Assist</li>
                     </ul>
-
                     <div class="call-to-action-group">
-                        <a href="#" class="cta-button primary large">Request a Test Drive</a>
-                        <button class="cta-button secondary large">Calculate Payments</button>
-                        <button class="cta-button tertiary large">Get E-Price</button>
+                        <a href="contact.html" class="cta-button primary">Request a Test Drive</a>
+                        <button class="cta-button secondary">Calculate Payments</button>
+                        <button class="cta-button tertiary">Get E-Price</button>
                     </div>
                 </div>
             </div>
-
             <div class="detailed-specs-tabs">
                 <div class="tab-buttons">
                     <button class="spec-tab active" data-tab="performance">Performance</button>
@@ -58,19 +170,106 @@
                 </div>
                 <div class="tab-content active" id="performance">
                     <ul>
-                        <li>**Engine:** 3.0L Turbocharged V6 Hybrid</li>
-                        <li>**0-60 MPH:** 5.8 seconds</li>
-                        <li>**Traction:** All-Wheel Drive (AWD)</li>
+                        <li><strong>Engine:</strong> 3.0L Turbocharged V6 Hybrid</li>
+                        <li><strong>Horsepower:</strong> 350 HP @ 5,500 rpm</li>
+                        <li><strong>Torque:</strong> 370 lb-ft @ 2,000 rpm</li>
+                        <li><strong>0-60 MPH:</strong> 5.8 seconds</li>
+                        <li><strong>Drivetrain:</strong> All-Wheel Drive (AWD)</li>
                     </ul>
                 </div>
+                <div class="tab-content" id="interior">
+                    <ul>
+                        <li><strong>Seating:</strong> Premium Italian Leather, 5-passenger</li>
+                        <li><strong>Infotainment:</strong> 15-inch Touchscreen with RollerConnect™</li>
+                        <li><strong>Audio:</strong> 14-Speaker Bose Surround System</li>
+                        <li><strong>Climate:</strong> Triple-Zone Automatic Climate Control</li>
+                    </ul>
                 </div>
-
-            <section class="related-vehicles">
-                <h2>Explore Similar Models</h2>
-                </section>
+                <div class="tab-content" id="safety">
+                    <ul>
+                        <li><strong>Rating:</strong> 5-Star NCAP Safety Rating</li>
+                        <li><strong>Features:</strong> Adaptive Cruise, Lane Keep Assist, Blind Spot Monitoring</li>
+                        <li><strong>Airbags:</strong> Full Perimeter Airbag System (10 Total)</li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="dimensions">
+                    <ul>
+                        <li><strong>Length:</strong> 193.5 in</li>
+                        <li><strong>Width:</strong> 76.2 in</li>
+                        <li><strong>Height:</strong> 67.0 in</li>
+                        <li><strong>Cargo Volume:</strong> 35.8 cu ft (Seats Up)</li>
+                    </ul>
+                </div>
+            </div>
         </section>
     </main>
-    <footer class="main-footer"></footer>
-    <script src="script.js"></script>
+    <footer class="main-footer">
+        <div class="footer-content container">
+            <div class="footer-col">
+                <h4>Roller Motor Company</h4>
+                <p>Crafting vehicles for a better tomorrow.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="vehicles.html">New Inventory</a></li>
+                    <li><a href="aboutus.html">Our Story</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Service Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Roller Motor Company. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Hamburger Menu Logic
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (hamburgerBtn && mobileMenu) {
+                const toggleMenu = () => { mobileMenu.classList.toggle('open'); hamburgerBtn.setAttribute('aria-expanded', mobileMenu.classList.contains('open')); };
+                hamburgerBtn.addEventListener('click', toggleMenu);
+                mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', toggleMenu));
+            }
+
+            // Image Gallery Logic
+            const mainImage = document.getElementById('main-vehicle-image');
+            const thumbnails = document.querySelectorAll('.thumbnail-previews img');
+            if (mainImage && thumbnails.length > 0) {
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', (event) => {
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        event.target.classList.add('active');
+                        // In a real site, you'd swap the main image source here
+                        // mainImage.src = event.target.getAttribute('data-full-src');
+                        mainImage.alt = event.target.alt;
+                    });
+                });
+            }
+
+            // Tab Functionality
+            const tabButtons = document.querySelectorAll('.spec-tab');
+            const tabContents = document.querySelectorAll('.detailed-specs-tabs .tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-tab');
+                    const targetContent = document.getElementById(targetId);
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    button.classList.add('active');
+                    if (targetContent) { targetContent.classList.add('active'); }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

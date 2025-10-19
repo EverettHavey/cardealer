@@ -1,0 +1,43 @@
+[
+  {
+    "model": "Roller X-Class SUV",
+    "slug": "xclass",
+    "category": "SUVs",
+    "price": "$45,000",
+    "engine": "V6 Hybrid",
+    "hp": "350",
+    "mpg": "30 City / 35 Hwy",
+    "image": "images/image.webp"
+  },
+  {
+    "model": "Roller Titan Truck",
+    "slug": "titan",
+    "category": "Trucks",
+    "price": "$55,500",
+    "engine": "Turbo Diesel",
+    "towing": "12,000 lbs",
+    "drivetrain": "4x4",
+    "image": "images/image.webp"
+  },
+  {
+    "model": "Roller E-Cruiser",
+    "slug": "ecruiser",
+    "category": "Electric",
+    "price": "$62,995",
+    "engine": "Electric Motor",
+    "range": "320 Miles",
+    "0-60": "4.5 Seconds",
+    "image": "images/image.webp"
+  },
+  {
+    "model": "Roller GT-Racer",
+    "slug": "gtracer",
+    "category": "Performance",
+    "price": "$88,000",
+    "engine": "Twin-Turbo V8",
+    "hp": "650",
+    "0-60": "3.2 Seconds",
+    "image": "images/car5.webp"
+  }
+  
+]

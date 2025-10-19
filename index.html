@@ -4,8 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Roller Motor Company | Experience the Future of Driving</title>
-    <link rel="stylesheet" href="style.css">
-    </head>
+    
+    <style>
+        /* ==========================================================
+           GLOBAL STYLES & VARIABLES
+           ========================================================== */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary-color: #002244; /* Dark Navy/Charcoal */
+            --accent-color: #00BFFF; /* Electric Blue */
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --bg-light: #f7f7f7;
+            --font-primary: 'Roboto', sans-serif;
+            --transition-speed: 0.3s;
+        }
+        body { font-family: var(--font-primary); color: var(--text-dark); line-height: 1.6; background-color: var(--bg-light); }
+        a { color: var(--primary-color); text-decoration: none; transition: color var(--transition-speed); }
+        a:hover { color: var(--accent-color); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        h1, h2 { font-weight: 700; margin-bottom: 20px; }
+        h2 { font-size: 2.2em; text-align: center; margin: 40px 0 30px; }
+        .cta-button {
+            display: inline-block; padding: 12px 30px; border-radius: 4px; font-weight: 600; text-transform: uppercase;
+            transition: background-color var(--transition-speed), transform 0.2s; border: 2px solid transparent; cursor: pointer;
+        }
+        .cta-button.primary { background-color: var(--accent-color); color: var(--text-dark); }
+        .cta-button.primary:hover { background-color: #0099cc; transform: translateY(-2px); }
+        .cta-button.secondary { background: none; border-color: var(--primary-color); color: var(--primary-color); }
+        .cta-button.secondary:hover { background-color: var(--primary-color); color: var(--text-light); }
+        .cta-button.tertiary { background-color: var(--text-light); color: var(--primary-color); border-color: var(--text-light); }
+        .cta-button.tertiary:hover { background-color: var(--bg-light); color: var(--primary-color); }
+
+        /* ==========================================================
+           HEADER & NAVIGATION
+           ========================================================== */
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: var(--primary-color); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .logo a { font-size: 1.5em; font-weight: 900; letter-spacing: 1px; color: var(--text-light); }
+        .header-actions { display: flex; align-items: center; }
+        .header-actions > * { margin-left: 15px; }
+        .search-btn { background: none; border: none; color: var(--text-light); font-size: 1.2em; cursor: pointer; }
+        .desktop-nav { display: none; }
+        .desktop-nav ul { list-style: none; display: flex; }
+        .desktop-nav li a { padding: 10px 15px; color: var(--text-light); border-bottom: 2px solid transparent; }
+        .desktop-nav li a:hover, .desktop-nav li a.active { color: var(--accent-color); border-color: var(--accent-color); }
+        .hamburger-menu { background: none; border: none; padding: 5px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; }
+        .hamburger-menu .bar { display: block; height: 3px; width: 100%; background: var(--text-light); border-radius: 1px; }
+        .mobile-nav { position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background-color: var(--primary-color); padding-top: 80px; transition: right var(--transition-speed) ease-in-out; z-index: 999; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); }
+        .mobile-nav.open { right: 0; }
+        .mobile-nav ul { list-style: none; }
+        .mobile-nav ul a { display: block; padding: 15px 30px; color: var(--text-light); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .mobile-nav ul a:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--accent-color); }
+        
+        /* ==========================================================
+           HOME PAGE SECTIONS
+           ========================================================== */
+        .hero-section { position: relative; height: 90vh; display: flex; align-items: center; justify-content: center; }
+        .hero-image { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: 1; }
+        .hero-content { position: relative; z-index: 5; text-align: center; color: var(--text-light); background-color: rgba(0, 0, 0, 0.45); padding: 40px; border-radius: 8px; max-width: 80%; }
+        .hero-content h1 { font-size: clamp(2em, 5vw, 4em); margin-bottom: 20px; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
+        .featured-vehicles { padding: 60px 0; }
+        .vehicle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin: 40px 0; }
+        .vehicle-card { background: white; border-radius: 10px; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all var(--transition-speed); }
+        .vehicle-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+        .vehicle-card img { width: 100%; height: 200px; object-fit: cover; }
+        .vehicle-card h3 { padding: 15px 15px 5px; color: var(--primary-color); }
+        .vehicle-card p { padding: 0 15px; font-size: 0.95em; }
+        .vehicle-card a { margin: 15px; display: inline-block; width: calc(100% - 30px); text-align: center; }
+        .mission-banner { background-color: var(--primary-color); color: var(--text-light); padding: 60px 20px; text-align: center; }
+        .mission-banner h2 { color: var(--accent-color); margin-bottom: 15px; }
+        .mission-banner p { max-width: 700px; margin: 0 auto 30px; font-size: 1.1em; }
+
+        /* ==========================================================
+           FOOTER
+           ========================================================== */
+        .main-footer { background-color: var(--primary-color); color: var(--text-light); padding-top: 50px; border-top: 5px solid var(--accent-color); }
+        .footer-content { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; padding-bottom: 30px; }
+        .footer-col { flex: 1 1 200px; }
+        .footer-col h4 { color: var(--accent-color); margin-bottom: 15px; }
+        .footer-col ul { list-style: none; }
+        .footer-col a { color: rgba(255, 255, 255, 0.7); display: block; padding: 5px 0; }
+        .footer-col a:hover { color: var(--text-light); }
+        .copyright { text-align: center; padding: 20px 0; background-color: #00152b; font-size: 0.9em; }
+
+        /* ==========================================================
+           MEDIA QUERIES (DESKTOP)
+           ========================================================== */
+        @media (min-width: 768px) {
+            .desktop-nav { display: block; }
+            .hamburger-menu { display: none; }
+            .mobile-nav { display: none !important; }
+            .hero-content { text-align: left; padding: 50px; max-width: 50%; left: 10%; transform: none; background-color: rgba(0, 0, 0, 0.3); }
+            .hero-content h1 { font-size: 3.5em; }
+        }
+    </style>
+</head>
 <body>
     <header class="main-header">
         <div class="logo">
@@ -21,8 +114,7 @@
             </ul>
         </nav>
         <div class="header-actions">
-            <button class="search-btn" aria-label="Search"></button>
-            <a href="#" class="sign-in-link">Sign In</a>
+            <button class="search-btn" aria-label="Search">🔍</button> 
             <button class="hamburger-menu" aria-label="Toggle menu" id="hamburger-btn">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -30,10 +122,15 @@
             </button>
         </div>
     </header>
-
     <nav class="mobile-nav" id="mobile-menu">
-        </nav>
-
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Finance</a></li>
+        </ul>
+    </nav>
     <main>
         <section class="hero-section">
             <img src="images/image.webp" alt="A sleek, modern Roller Motor Company vehicle driving at sunset" class="hero-image">
@@ -43,36 +140,29 @@
                 <a href="vehicles.html" class="cta-button primary">Explore Our Vehicles</a>
             </div>
         </section>
-
         <section class="featured-vehicles container">
             <h2>Our Top Picks</h2>
             <div class="vehicle-grid">
                 <article class="vehicle-card">
                     <img src="images/image.webp" alt="Featured Electric Vehicle" class="card-image">
                     <h3>The Roller E-Cruiser</h3>
-                    <p class="tag electric-tag">Electric</p>
-                    <p>Zero emissions, maximum thrills.</p>
+                    <p>Zero emissions, maximum thrills. Starting at $62,995.</p>
                     <a href="vehicleview.html?model=ecruiser" class="cta-button secondary">View Details</a>
                 </article>
-
                 <article class="vehicle-card">
                     <img src="images/image.webp" alt="Featured SUV" class="card-image">
                     <h3>Roller X-Class SUV</h3>
-                    <p class="tag suv-tag">SUV</p>
-                    <p>Luxury and capability redefined.</p>
+                    <p>Luxury and capability redefined. Starting at $45,000.</p>
                     <a href="vehicleview.html?model=xclass" class="cta-button secondary">View Details</a>
                 </article>
-
                 <article class="vehicle-card">
                     <img src="images/image.webp" alt="Featured Performance Car" class="card-image">
                     <h3>Roller GT-Racer</h3>
-                    <p class="tag perf-tag">Performance</p>
-                    <p>Track-ready power for the road.</p>
+                    <p>Track-ready power for the road. Starting at $88,000.</p>
                     <a href="vehicleview.html?model=gtracer" class="cta-button secondary">View Details</a>
                 </article>
             </div>
         </section>
-
         <section class="mission-banner">
             <div class="container">
                 <h2>Innovation. Performance. Trust.</h2>
@@ -80,23 +170,19 @@
                 <a href="#" class="cta-button tertiary">See Current Offers</a>
             </div>
         </section>
-
     </main>
-
     <footer class="main-footer">
         <div class="footer-content container">
             <div class="footer-col">
                 <h4>Roller Motor Company</h4>
                 <p>Crafting vehicles for a better tomorrow.</p>
-                <div class="social-links">
-                    </div>
             </div>
             <div class="footer-col">
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="vehicles.html">New Inventory</a></li>
                     <li><a href="aboutus.html">Our Story</a></li>
-                    <li><a href="contact.html">Careers</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
                     <li><a href="#">Service Center</a></li>
                 </ul>
             </div>
@@ -112,7 +198,20 @@
             &copy; 2025 Roller Motor Company. All rights reserved.
         </div>
     </footer>
-
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (hamburgerBtn && mobileMenu) {
+                const toggleMenu = () => {
+                    mobileMenu.classList.toggle('open');
+                    const isExpanded = mobileMenu.classList.contains('open');
+                    hamburgerBtn.setAttribute('aria-expanded', isExpanded);
+                };
+                hamburgerBtn.addEventListener('click', toggleMenu);
+                mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', toggleMenu));
+            }
+        });
+    </script>
 </body>
 </html>

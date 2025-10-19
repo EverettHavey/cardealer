@@ -4,10 +4,134 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Roller Motor Company</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* CSS is consistent across all files for styling/responsiveness */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --primary-color: #002244; --accent-color: #00BFFF; --text-dark: #1a1a1a;
+            --text-light: #ffffff; --bg-light: #f7f7f7; --font-primary: 'Roboto', sans-serif;
+            --transition-speed: 0.3s;
+        }
+        body { font-family: var(--font-primary); color: var(--text-dark); line-height: 1.6; background-color: var(--bg-light); }
+        a { color: var(--primary-color); text-decoration: none; transition: color var(--transition-speed); }
+        a:hover { color: var(--accent-color); }
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        h1 { font-weight: 700; font-size: 2.5em; margin: 40px 0 20px; text-align: center; }
+        h2 { font-weight: 700; font-size: 2.2em; text-align: center; margin: 40px 0 30px; }
+        .cta-button {
+            display: inline-block; padding: 12px 30px; border-radius: 4px; font-weight: 600; text-transform: uppercase;
+            transition: background-color var(--transition-speed), transform 0.2s; border: 2px solid transparent; cursor: pointer;
+        }
+        .cta-button.primary { background-color: var(--accent-color); color: var(--text-dark); }
+        .cta-button.primary:hover { background-color: #0099cc; transform: translateY(-2px); }
+        .main-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: var(--primary-color); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); position: sticky; top: 0; z-index: 1000; }
+        .logo a { font-size: 1.5em; font-weight: 900; letter-spacing: 1px; color: var(--text-light); }
+        .header-actions { display: flex; align-items: center; }
+        .header-actions > * { margin-left: 15px; }
+        .search-btn { background: none; border: none; color: var(--text-light); font-size: 1.2em; cursor: pointer; }
+        .desktop-nav { display: none; }
+        .desktop-nav ul { list-style: none; display: flex; }
+        .desktop-nav li a { padding: 10px 15px; color: var(--text-light); border-bottom: 2px solid transparent; }
+        .desktop-nav li a:hover, .desktop-nav li a.active { color: var(--accent-color); border-color: var(--accent-color); }
+        .hamburger-menu { background: none; border: none; padding: 5px; cursor: pointer; display: flex; flex-direction: column; justify-content: space-around; width: 30px; height: 25px; }
+        .hamburger-menu .bar { display: block; height: 3px; width: 100%; background: var(--text-light); border-radius: 1px; }
+        .mobile-nav { position: fixed; top: 0; right: -300px; width: 300px; height: 100%; background-color: var(--primary-color); padding-top: 80px; transition: right var(--transition-speed) ease-in-out; z-index: 999; box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); }
+        .mobile-nav.open { right: 0; }
+        .mobile-nav ul { list-style: none; }
+        .mobile-nav ul a { display: block; padding: 15px 30px; color: var(--text-light); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .mobile-nav ul a:hover { background-color: rgba(255, 255, 255, 0.1); color: var(--accent-color); }
+
+        /* About Us Specific Styles */
+        .about-hero {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .about-hero h1 { color: var(--accent-color); margin-bottom: 10px; }
+        .our-story { padding: 60px 0; }
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        .story-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .mission-vision {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin: 40px 0;
+            padding: 0 20px;
+        }
+        .mission-card, .vision-card {
+            background-color: var(--text-light);
+            padding: 30px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .mission-card h3, .vision-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Footer Styles (Standardized) */
+        .main-footer { background-color: var(--primary-color); color: var(--text-light); padding-top: 50px; border-top: 5px solid var(--accent-color); }
+        .footer-content { display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; padding-bottom: 30px; }
+        .footer-col { flex: 1 1 200px; }
+        .footer-col h4 { color: var(--accent-color); margin-bottom: 15px; }
+        .footer-col ul { list-style: none; }
+        .footer-col a { color: rgba(255, 255, 255, 0.7); display: block; padding: 5px 0; }
+        .footer-col a:hover { color: var(--text-light); }
+        .copyright { text-align: center; padding: 20px 0; background-color: #00152b; font-size: 0.9em; }
+
+        @media (min-width: 768px) {
+            .desktop-nav { display: block; }
+            .hamburger-menu { display: none; }
+            .mobile-nav { display: none !important; }
+            .story-content { grid-template-columns: 1fr 1fr; align-items: center; }
+            .mission-vision { flex-direction: row; }
+        }
+    </style>
 </head>
 <body>
-    <header class="main-header"></header>
+    <header class="main-header">
+        <div class="logo">
+            <a href="index.html">Roller Motor Company</a>
+        </div>
+        <nav class="desktop-nav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="vehicles.html">Vehicles</a></li>
+                <li><a href="aboutus.html" class="active">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#">Finance</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="search-btn" aria-label="Search">🔍</button> 
+            <button class="hamburger-menu" aria-label="Toggle menu" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+    <nav class="mobile-nav" id="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="vehicles.html">Vehicles</a></li>
+            <li><a href="aboutus.html" class="active">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Finance</a></li>
+        </ul>
+    </nav>
     <main>
         <section class="about-hero">
             <div class="container">
@@ -15,33 +139,68 @@
                 <p>Learn about the heritage, innovation, and passion that drives Roller Motor Company.</p>
             </div>
         </section>
-
         <section class="our-story container">
             <h2>Our Story</h2>
             <div class="story-content">
-                <p>Roller Motor Company was founded in 1952 by engineer and visionary, Arthur Roller, with a singular focus: to build vehicles that excel in reliability and performance. What started as a small, specialized auto shop has grown into a global leader in automotive innovation.</p>
-                <p>Today, RMC continues to honor its legacy by pushing the boundaries of technology, especially in sustainable and electric vehicle development. We believe driving should be an experience, not just a commute.</p>
+                <div>
+                    <p>Roller Motor Company was founded in **1952** by engineer and visionary, Arthur Roller, with a singular focus: to build vehicles that excel in reliability and performance. What started as a small, specialized auto shop has grown into a global leader in automotive innovation.</p>
+                    <p style="margin-top: 15px;">Today, RMC continues to honor its legacy by pushing the boundaries of technology, especially in sustainable and electric vehicle development. We believe driving should be an experience, not just a commute.</p>
+                </div>
                 <img src="images/image.webp" alt="Historic image of Roller Motor Company factory" class="story-image">
             </div>
         </section>
-
         <section class="mission-vision container">
             <div class="mission-card">
                 <h3>Our Mission</h3>
-                <p>To build the most reliable, innovative, and performance-driven vehicles on the road, while prioritizing sustainable practices and customer trust.</p>
+                <p>To build the most reliable, innovative, and performance-driven vehicles on the road, while prioritizing sustainable practices and uncompromising customer trust.</p>
             </div>
             <div class="vision-card">
                 <h3>Our Vision</h3>
-                <p>To lead the automotive world into an electric and autonomous future, setting new benchmarks for safety, luxury, and driving pleasure.</p>
+                <p>To lead the automotive world into an electric and autonomous future, setting new benchmarks for safety, luxury, and driving pleasure across all segments.</p>
             </div>
         </section>
-
         <section class="leadership container">
             <h2>Leadership Team</h2>
-            </section>
-
+            <p style="text-align: center;">Meet the dedicated team guiding RMC's journey toward tomorrow.</p>
+        </section>
     </main>
-    <footer class="main-footer"></footer>
-    <script src="script.js"></script>
+    <footer class="main-footer">
+        <div class="footer-content container">
+            <div class="footer-col">
+                <h4>Roller Motor Company</h4>
+                <p>Crafting vehicles for a better tomorrow.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="vehicles.html">New Inventory</a></li>
+                    <li><a href="aboutus.html">Our Story</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#">Service Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Roller Motor Company. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (hamburgerBtn && mobileMenu) {
+                const toggleMenu = () => { mobileMenu.classList.toggle('open'); hamburgerBtn.setAttribute('aria-expanded', mobileMenu.classList.contains('open')); };
+                hamburgerBtn.addEventListener('click', toggleMenu);
+                mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', toggleMenu));
+            }
+        });
+    </script>
 </body>
 </html>
