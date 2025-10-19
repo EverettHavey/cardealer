@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicles | Roller Motor Company</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="main-header"></header>
+    <main>
+        <section class="vehicle-catalog container">
+            <h1>Our Extensive Fleet</h1>
+
+            <nav class="category-tabs">
+                <a href="#" class="tab active">All Vehicles</a>
+                <a href="#" class="tab">SUVs</a>
+                <a href="#" class="tab">Trucks</a>
+                <a href="#" class="tab">Performance</a>
+                <a href="#" class="tab">Electric</a>
+                <a href="#" class="tab">Upcoming</a>
+            </nav>
+
+            <div class="filter-bar">
+                <select name="sort" id="sort-by">
+                    <option value="price-asc">Sort by Price (Low to High)</option>
+                    <option value="year-desc">Sort by Year (Newest)</option>
+                </select>
+                <button class="filter-toggle-btn">Advanced Filters</button>
+            </div>
+
+            <div class="vehicle-grid catalog-grid">
+                <article class="vehicle-card-item">
+                    <img src="images/image.webp" alt="Roller X-Class SUV" class="card-image">
+                    <div class="card-body">
+                        <h3>Roller X-Class SUV</h3>
+                        <p class="price">Starting at $45,000</p>
+                        <ul class="specs-list">
+                            <li><span class="spec-label">Engine:</span> V6 Hybrid</li>
+                            <li><span class="spec-label">HP:</span> 350</li>
+                            <li><span class="spec-label">MPG:</span> 30 City / 35 Hwy</li>
+                        </ul>
+                        <a href="vehicleview.html?model=xclass" class="cta-button primary">View Details</a>
+                    </div>
+                </article>
+
+                <article class="vehicle-card-item">
+                    <img src="images/image.webp" alt="Roller Titan Truck" class="card-image">
+                    <div class="card-body">
+                        <h3>Roller Titan Truck</h3>
+                        <p class="price">Starting at $55,500</p>
+                        <ul class="specs-list">
+                            <li><span class="spec-label">Engine:</span> Turbo Diesel</li>
+                            <li><span class="spec-label">Towing:</span> 12,000 lbs</li>
+                            <li><span class="spec-label">Drivetrain:</span> 4x4</li>
+                        </ul>
+                        <a href="vehicleview.html?model=titan" class="cta-button primary">View Details</a>
+                    </div>
+                </article>
+
+                <article class="vehicle-card-item">
+                    <img src="images/image.webp" alt="Roller E-Cruiser" class="card-image">
+                    <div class="card-body">
+                        <h3>Roller E-Cruiser</h3>
+                        <p class="price">Starting at $62,995</p>
+                        <ul class="specs-list">
+                            <li><span class="spec-label">Range:</span> 320 Miles</li>
+                            <li><span class="spec-label">0-60:</span> 4.5 Seconds</li>
+                            <li><span class="spec-label">Charging:</span> DC Fast Charge</li>
+                        </ul>
+                        <a href="vehicleview.html?model=ecruiser" class="cta-button primary">View Details</a>
+                    </div>
+                </article>
+                
+                </div>
+            
+            <div class="pagination">
+                <a href="#">&laquo; Previous</a>
+                <span>Page 1 of 5</span>
+                <a href="#">Next &raquo;</a>
+            </div>
+            
+        </section>
+    </main>
+    <footer class="main-footer"></footer>
+    <script src="script.js"></script>
+</body>
+</html>
